@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """magic URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,7 +19,7 @@ from django.urls import path,include
 from django.views.generic.base import RedirectView
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-
+from rest_framework_jwt.views import obtain_jwt_token
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -38,4 +39,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico')),
+
+    path('api-token-auth/', obtain_jwt_token),
 ]
