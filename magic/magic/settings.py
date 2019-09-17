@@ -77,7 +77,6 @@ TEMPLATES = [
 
 
 REST_FRAMEWORK = {
-
     #session：session_id
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
