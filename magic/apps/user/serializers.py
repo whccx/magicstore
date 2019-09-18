@@ -44,7 +44,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username','password','email']
-        
+
 
     def validate_password(self,value):
         salt_pwd = make_password(value)

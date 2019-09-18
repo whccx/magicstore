@@ -28,6 +28,14 @@ class IndexViewSet(ListAPIView):
     queryset = Testinfo.objects.all()
     serializer_class = IndexSerializer
 
+    # ==================立即修改数据库===============================================
+    # for q in queryset:
+    #     if q.id == 1:
+    #         q.text = '测试789下'
+    #         q.save()
+
+
+    #=================================================================
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
@@ -38,8 +46,19 @@ class IndexViewSet(ListAPIView):
 
         for q in queryset:
             if q.id == 1:
-                q.text = '测试123下'
+                q.text += '测试456下'
                 q.save()
 
         return Response(serializer.data)
 
+
+    #==================定义查询结果=====================================
+    def get_queryset(self):
+        queryset = Testinfo.objects.filter(id=1)
+
+        for q in queryset:
+            if q.id == 1:
+                q.text += '测试123下'
+                q.save()
+
+        return queryset
