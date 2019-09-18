@@ -87,7 +87,7 @@
 			'password':password,
 			'email':email
 		}
-		$.post('http://127.0.0.1:8000/api/registers/',data,function (data) {
+		$.post('http://127.0.0.1:8000/users/',data,function (data) {
 			window.location.href = 'login.html'
 		})
 	})
