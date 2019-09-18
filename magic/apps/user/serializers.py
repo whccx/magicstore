@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
-
+from .models import Testinfo
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
@@ -47,3 +49,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         return salt_pwd
 
 
+class IndexSerializer(serializers.ModelSerializer):
+    text = serializers.CharField(
+        required=True,
+        write_only=True,
+        label='用户信息'
+    )
+    class Meta:
+        model = Testinfo
+        fields = ['text']
