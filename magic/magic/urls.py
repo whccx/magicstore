@@ -14,6 +14,7 @@ router = routers.DefaultRouter()
 
 #用户注册
 router.register(r'users', UsersViewSet)
+router.register(r'test', IndexViewSet)
 
 
 urlpatterns = [
@@ -25,6 +26,5 @@ urlpatterns = [
     path('refresh/', refresh_jwt_token),
 
     path('', include(router.urls)),
-    path('test/', IndexViewSet.as_view()),
 
 ]

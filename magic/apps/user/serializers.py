@@ -55,4 +55,4 @@ class IndexSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Testinfo
-        fields = ['text']
+        fields = ['id','text']

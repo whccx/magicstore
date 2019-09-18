@@ -19,11 +19,11 @@ class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
 
-class IndexViewSet(ListAPIView):
+class IndexViewSet(mixins.ListModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
     #认证
-    authentication_classes = (JSONWebTokenAuthentication,)
+    #authentication_classes = (JSONWebTokenAuthentication,)
     #权限
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
     queryset = Testinfo.objects.all()
     serializer_class = IndexSerializer
