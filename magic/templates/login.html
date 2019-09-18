@@ -21,18 +21,18 @@
 					<a href="register.html">立即注册</a>
 				</div>
 				<div class="form_input">
-					<form>
-						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
+
+						<input type="text" id="username" class="name_input" placeholder="请输入用户名">
 						<div class="user_error">输入错误</div>
-						<input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
+						<input type="password" id="pwd" class="pass_input" placeholder="请输入密码">
 						<div class="pwd_error">输入错误</div>
 						<div class="more_input clearfix">
 							<input type="checkbox" name="">
 							<label>记住用户名</label>
 							<a href="#">忘记密码</a>
 						</div>
-						<input type="submit" name="" value="登录" class="input_submit">
-					</form>
+						<input type="submit" name="" value="登录" class="input_submit" id="login">
+
 				</div>
 			</div>
 		</div>
@@ -51,6 +51,31 @@
 		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
-	
+	<script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+	<script>
+		$('#login').click(function () {
+			var data ={
+				"username":$('#username').val(),
+				"password":$('#pwd').val(),
+			};
+            $.ajax({
+                //请求方式
+                type: "POST",
+                //请求地址
+                url: "http://127.0.0.1:8000/login/",
+				data:data,
+                //请求成功
+                success: function (result) {
+                    console.log(result.token);
+                    window.location.href = 'index.html'
+                },
+                //请求失败，包含具体的错误信息
+                error: function (e) {
+                    console.log(e.status);
+                    console.log(e.responseText);
+                }
+            });
+        });
+	</script>
 </body>
 </html>

@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
-
+from .models import Testinfo
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
@@ -36,14 +38,21 @@ class RegisterSerializer(serializers.ModelSerializer):
             "max_length": "用户名长度最长为16位",
             "min_length": "用户名长度至少为6位"
         }
+
     )
 
     class Meta:
         model = User
         fields = ['username','password','email']
 
+
     def validate_password(self,value):
         salt_pwd = make_password(value)
         return salt_pwd
 
 
+class IndexSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Testinfo
+        fields = ['id','text']
