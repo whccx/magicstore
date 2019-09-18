@@ -5,7 +5,11 @@ from rest_framework.response import Response
 # Create your views here.
 
 
-class RegisterViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,viewsets.GenericViewSet):
+class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
+    '''
+    create:
+        创建用户
+    '''
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
 

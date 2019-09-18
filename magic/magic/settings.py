@@ -88,6 +88,7 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),  # 有效期
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
 WSGI_APPLICATION = 'magic.wsgi.application'
