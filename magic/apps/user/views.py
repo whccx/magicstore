@@ -21,9 +21,9 @@ class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
 
 class IndexViewSet(ListAPIView):
     #认证
-    #authentication_classes = (JSONWebTokenAuthentication,)
+    authentication_classes = (JSONWebTokenAuthentication,)
     #权限
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     queryset = Testinfo.objects.all()
     serializer_class = IndexSerializer
@@ -36,29 +36,29 @@ class IndexViewSet(ListAPIView):
 
 
     #=================================================================
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-
-        set = User.objects.all()
-        for s in set:
-            print(s.username)
-
-        for q in queryset:
-            if q.id == 1:
-                q.text += '测试456下'
-                q.save()
-
-        return Response(serializer.data)
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     serializer = self.get_serializer(queryset, many=True)
+    #
+    #     set = User.objects.all()
+    #     for s in set:
+    #         print(s.username)
+    #
+    #     for q in queryset:
+    #         if q.id == 1:
+    #             q.text += '测试456下'
+    #             q.save()
+    #
+    #     return Response(serializer.data)
 
 
     #==================定义查询结果=====================================
-    def get_queryset(self):
-        queryset = Testinfo.objects.filter(id=1)
-
-        for q in queryset:
-            if q.id == 1:
-                q.text += '测试123下'
-                q.save()
-
-        return queryset
+    # def get_queryset(self):
+    #     queryset = Testinfo.objects.filter(id=1)
+    #
+    #     for q in queryset:
+    #         if q.id == 1:
+    #             q.text += '测试123下'
+    #             q.save()
+    #
+    #     return queryset

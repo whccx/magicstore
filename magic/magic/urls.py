@@ -21,8 +21,8 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    path('api-token-auth/', obtain_jwt_token),
-    path('api-token-refresh/', refresh_jwt_token),
+    path('login/', obtain_jwt_token),
+    path('refresh/', refresh_jwt_token),
 
     path('', include(router.urls)),
     path('test/', IndexViewSet.as_view()),

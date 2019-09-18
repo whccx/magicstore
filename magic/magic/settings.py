@@ -11,12 +11,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os,sys,datetime
+import os, sys, datetime
 import os.path
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -38,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'corsheaders', #跨域
+
+    'corsheaders',  # 跨域
     'rest_framework',
-    'user' #用户信息
+    'user'  # 用户信息
 
 ]
 
@@ -76,10 +77,9 @@ TEMPLATES = [
     },
 ]
 
-
 REST_FRAMEWORK = {
 
-    #session：session_id
+    # session：session_id
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -89,7 +89,10 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # 有效期
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    "JWT_AUTH_HEADER_PREFIX": 'JWT',
+
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),  # token刷新的最大时间间隔，默认七天
 }
 
 WSGI_APPLICATION = 'magic.wsgi.application'
@@ -99,14 +102,14 @@ WSGI_APPLICATION = 'magic.wsgi.application'
 
 # Database
 DATABASES = {
-	'default': {
-		'ENGINE':'django.db.backends.mysql',
-		'NAME':'magic',
-		'USER':'root',
-		'PASSWORD':'sy123456',
-		'HOST':'127.0.0.1',
-		'PORT':'3306'
-	}
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'magic',
+        'USER': 'root',
+        'PASSWORD': 'sy123456',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
+    }
 }
 
 # Password validation
@@ -127,10 +130,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#session
+# session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 3600
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -150,7 +152,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 #
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 #
