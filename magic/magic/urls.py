@@ -12,21 +12,19 @@ from user.views import UsersViewSet,IndexViewSet
 
 router = routers.DefaultRouter()
 
-
 #用户注册
 router.register(r'users', UsersViewSet)
-router.register(r'test', IndexViewSet)
-
-
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api-token-auth/', obtain_jwt_token),
 
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    path('api-token-auth/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
 
     path('', include(router.urls)),
+    path('test/', IndexViewSet.as_view()),
 
 ]

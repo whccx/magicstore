@@ -38,11 +38,13 @@ class RegisterSerializer(serializers.ModelSerializer):
             "max_length": "用户名长度最长为16位",
             "min_length": "用户名长度至少为6位"
         }
+
     )
 
     class Meta:
         model = User
         fields = ['username','password','email']
+        
 
     def validate_password(self,value):
         salt_pwd = make_password(value)
@@ -50,11 +52,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class IndexSerializer(serializers.ModelSerializer):
-    text = serializers.CharField(
-        required=True,
-        write_only=True,
-        label='用户信息'
-    )
+
     class Meta:
         model = Testinfo
         fields = ['text']

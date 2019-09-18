@@ -78,6 +78,7 @@ TEMPLATES = [
 
 
 REST_FRAMEWORK = {
+
     #session：session_id
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -87,7 +88,7 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),  # 有效期
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # 有效期
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
