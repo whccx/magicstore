@@ -27,8 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #===插件-库=======================
     'corsheaders',      # 跨域
-    'rest_framework',   #REST API
+    'rest_framework',   # REST API
+    'DjangoUeditor',    # 富文本
+
+    #===自定义APP=======================
     'user',     # 用户信息
     'goods',    #商品信息
 
