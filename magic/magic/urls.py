@@ -9,14 +9,28 @@ from django.conf.urls.static import static
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 from django.views.generic.base import RedirectView
 from rest_framework_jwt.views import obtain_jwt_token
+
+
+from user.views import UsersViewSet,VerifyCodeViewSet
+
+
 from user.views import UsersViewSet
 from goods.views import GoodsViewSet
+
 
 router = routers.DefaultRouter()
 
 #用户注册
 router.register(r'users', UsersViewSet,base_name='users')
+
+
+#验证码
+router.register(r'code', VerifyCodeViewSet,base_name='code')
+
+
+
 router.register(r'goods', GoodsViewSet,base_name='goods')
+
 
 
 urlpatterns = [

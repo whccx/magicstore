@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-
+from random import choice
 from rest_framework import viewsets,mixins,status
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer,VerifyCodeSerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-
+from .models import VerifyCode
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets
-from rest_framework import generics
-
-
 # Create your views here.
+
 from rest_framework import status
+from utils.yupian import YuPian
+from magic.settings import YP_API,YP_APK
+# Create your views here.
 
 class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
     '''
@@ -77,3 +77,40 @@ class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
     #             q.save()
     #
     #     return queryset
+
+class VerifyCodeViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
+    '''
+    create:
+        手机验证码
+    '''
+    serializer_class = VerifyCodeSerializer
+
+    def generte_code(self):
+        nums = "0123456789"
+        random_str = []
+        for _ in range(4):
+            random_str.append(choice(nums))
+        return ''.join(random_str)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        mobile = serializer.validated_data['mobile']
+
+        #生成四位验证码
+        code = self.generte_code()
+        yp_init = YuPian(YP_APK,YP_API)
+        response_data = yp_init.sms_message(mobile=mobile,code=code)
+        print(response_data)
+        if response_data['code'] != 0:
+            return Response({
+                'msg':response_data['msg']
+            },status=status.HTTP_400_BAD_REQUEST)
+        else:
+            VerifyCode.objects.create(code=code,mobile=mobile)
+            return Response({
+                'mobile':response_data['msg']
+            },status=status.HTTP_201_CREATED)
+
+
