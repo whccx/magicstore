@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-
+import re
+from django.utils.timezone import now
+from datetime import timedelta
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
-from .models import Testinfo
-
+from .models import Testinfo,VerifyCode
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         required=True,
@@ -56,3 +57,28 @@ class IndexSerializer(serializers.ModelSerializer):
     class Meta:
         model = Testinfo
         fields = ['id','text']
+
+
+class VerifyCodeSerializer(serializers.Serializer):
+    '''
+        验证码
+    '''
+    mobile = serializers.CharField(min_length=11,max_length=11,required=True,
+                                   help_text='手机号码',label='手机号码')
+
+    def validate_mobile(self,mobile):
+        '''
+        :param mobile: 手机号
+        :return:
+        '''
+        #正则验证手机号
+        regexp = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$"
+        if not re.match(regexp,mobile):
+            raise serializers.ValidationError('手机号码不正确')
+
+        #验证发送频率
+        one_minute_ago = now() - timedelta(days=0,minutes=1,seconds=0)
+        if VerifyCode.objects.filter(mobile=mobile,add_time__gt=one_minute_ago):
+            raise serializers.ValidationError('距离上次发送未超过60S')
+
+        return mobile

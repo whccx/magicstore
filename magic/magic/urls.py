@@ -8,14 +8,14 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 
 from rest_framework_jwt.views import obtain_jwt_token
-from user.views import UsersViewSet,IndexViewSet
+from user.views import UsersViewSet,IndexViewSet,VerifyCodeViewSet
 
 router = routers.DefaultRouter()
 
 #用户注册
-router.register(r'users', UsersViewSet)
+router.register(r'users', UsersViewSet,base_name='users')
 router.register(r'test', IndexViewSet)
-
+router.register(r'code', VerifyCodeViewSet,base_name='code')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
