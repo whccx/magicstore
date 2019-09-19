@@ -4,7 +4,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
-from .models import Testinfo
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
@@ -49,10 +48,3 @@ class RegisterSerializer(serializers.ModelSerializer):
     def validate_password(self,value):
         salt_pwd = make_password(value)
         return salt_pwd
-
-
-class IndexSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Testinfo
-        fields = ['id','text']

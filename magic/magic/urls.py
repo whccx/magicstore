@@ -8,13 +8,12 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 
 from rest_framework_jwt.views import obtain_jwt_token
-from user.views import UsersViewSet,IndexViewSet
+from user.views import UsersViewSet
 
 router = routers.DefaultRouter()
 
 #用户注册
 router.register(r'users', UsersViewSet)
-router.register(r'test', IndexViewSet)
 
 
 urlpatterns = [
