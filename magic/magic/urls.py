@@ -4,18 +4,25 @@ from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth.models import User
 from rest_framework import routers
-
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 
 from rest_framework_jwt.views import obtain_jwt_token
-from user.views import UsersViewSet,IndexViewSet,VerifyCodeViewSet
+
+from user.views import UsersViewSet,VerifyCodeViewSet
+
 
 router = routers.DefaultRouter()
 
 #用户注册
 router.register(r'users', UsersViewSet,base_name='users')
-router.register(r'test', IndexViewSet)
+
+#验证码
 router.register(r'code', VerifyCodeViewSet,base_name='code')
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +34,6 @@ urlpatterns = [
 
     path('', include(router.urls)),
 
-]
+    path('ueditor/',include('DjangoUeditor.urls')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

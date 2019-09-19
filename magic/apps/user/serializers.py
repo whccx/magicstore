@@ -6,7 +6,10 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
-from .models import Testinfo,VerifyCode
+from .models import VerifyCode
+
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         required=True,
@@ -52,11 +55,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         return salt_pwd
 
 
-class IndexSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Testinfo
-        fields = ['id','text']
+
 
 
 class VerifyCodeSerializer(serializers.Serializer):
@@ -82,3 +82,4 @@ class VerifyCodeSerializer(serializers.Serializer):
             raise serializers.ValidationError('距离上次发送未超过60S')
 
         return mobile
+
