@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+import os
 from django.db import models
 from datetime import datetime
 from DjangoUeditor.models import UEditorField
@@ -19,8 +21,8 @@ def goods_type(instance, filename):
 	filename = '{}.{}'.format(uuid4().hex, ext)
 	return os.path.join(upload_to, filename)
 
-#=============================================================
 #商品基础信息表
+#=============================================================
 class GoodsBase(models.Model):
 	#快递设置
 	express_choices = (('baoyou','卖家包邮'),('daofu','买家到付'),)
@@ -72,8 +74,8 @@ class Type(models.Model):
 		verbose_name = '商品分类'
 		verbose_name_plural = '商品分类'
 
-#=============================================================
 #订单信息表
+#=============================================================
 class Order(models.Model):
 	#状态\进度选择
 	state_choices = (
