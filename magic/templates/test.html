@@ -14,14 +14,13 @@
                 //请求方式
                 type: "DELETE",
                 //请求地址
-                url: "http://127.0.0.1:8000/test/3/",
+                url: "http://127.0.0.1:8000/test/1/",
                 //请求成功
                 success: function (result) {
                     console.log(result);
                 },
                 //请求失败，包含具体的错误信息
                 error: function (e) {
-                    console.log(e.status);
                     console.log(e.responseText);
                 }
             });

@@ -9,7 +9,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 # Create your views here.
-
+from rest_framework import status
 
 class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
     '''
@@ -18,6 +18,7 @@ class UsersViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
     '''
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
+
 
 class IndexViewSet(mixins.ListModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
     #认证
@@ -28,6 +29,16 @@ class IndexViewSet(mixins.ListModelMixin,mixins.DestroyModelMixin,viewsets.Gener
     queryset = Testinfo.objects.all()
     serializer_class = IndexSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+        ids = filter_kwargs[self.lookup_field]
+        obj = Testinfo.objects.filter(pk=int(ids))
+        if obj:
+            obj.delete()
+            return Response({'error':'删除成功'},status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({'error':'不存在此数据'},status=status.HTTP_404_NOT_FOUND)
     # ==================立即修改数据库===============================================
     # for q in queryset:
     #     if q.id == 1:

@@ -37,8 +37,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             "required": "请输入密码",
             "max_length": "用户名长度最长为16位",
             "min_length": "用户名长度至少为6位"
-        }
-
+        },
+        style={'input_type': 'password'}
     )
 
     class Meta:
