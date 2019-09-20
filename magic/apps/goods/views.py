@@ -14,5 +14,5 @@ class GoodsViewSet(viewsets.ModelViewSet,viewsets.GenericViewSet):
     # 权限
     permission_classes = (IsAdminOrReadOnly,)
 
-    queryset = GoodsBase.objects.all()
+    queryset = GoodsBase.objects.all().order_by("id")
     serializer_class = GoodsSerializer
