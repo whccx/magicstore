@@ -79,12 +79,13 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
 
-    # JWT认证
+    # JWT
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ],
+    #配置文档接口
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema'
 }
 
