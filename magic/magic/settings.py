@@ -70,8 +70,16 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
+    #
+    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 
-    # session：session_id
+    # 权限----设置所有接口都需要被验证
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+
+    # JWT认证
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -144,7 +152,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #云片网APK
-YP_APK = '***************************'
+YP_APK = '**************************************'
 
 #云片网发送短信的接口
 YP_API = 'https://sms.yunpian.com/v2/sms/single_send.json'
