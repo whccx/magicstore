@@ -12,9 +12,6 @@ from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework.documentation import include_docs_urls
 
 from user.views import UsersViewSet,VerifyCodeViewSet
-
-
-from user.views import UsersViewSet
 from goods.views import GoodsViewSet,TypeViewSet,OrderViewSet
 
 
