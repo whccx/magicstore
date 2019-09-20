@@ -15,7 +15,6 @@ from user.views import UsersViewSet,VerifyCodeViewSet
 
 from goods.views import GoodsViewSet,TypeViewSet,OrderViewSet
 
-
 router = routers.DefaultRouter()
 
 #用户注册
@@ -31,7 +30,6 @@ router.register(r'goods', GoodsViewSet,base_name='goods')
 router.register(r'type', TypeViewSet,base_name='type')
 #订单信息
 router.register(r'order', OrderViewSet,base_name='order')
-
 
 
 urlpatterns = [
