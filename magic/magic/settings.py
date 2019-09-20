@@ -151,7 +151,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #云片网APK
-YP_APK = 'ba0d922f4f44e58e93b54a2257b92337'
+YP_APK = '****************************************'
 
 #云片网发送短信的接口
 YP_API = 'https://sms.yunpian.com/v2/sms/single_send.json'
