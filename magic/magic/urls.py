@@ -13,7 +13,6 @@ from rest_framework.documentation import include_docs_urls
 
 from user.views import UsersViewSet,VerifyCodeViewSet
 
-
 from goods.views import GoodsViewSet,TypeViewSet,OrderViewSet
 
 
@@ -25,7 +24,7 @@ router.register(r'users', UsersViewSet,base_name='users')
 #验证码
 router.register(r'code', VerifyCodeViewSet,base_name='code')
 
-#商品===================
+#商品==============================================
 #基础信息
 router.register(r'goods', GoodsViewSet,base_name='goods')
 #分类信息
