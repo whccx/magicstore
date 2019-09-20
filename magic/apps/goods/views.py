@@ -9,6 +9,13 @@ from goods.models import GoodsBase
 
 # 商品信息
 class GoodsViewSet(viewsets.ModelViewSet,viewsets.GenericViewSet):
+    '''
+        list:
+            商品列表
+        action:
+            编辑商品
+    '''
+
     # 认证
     authentication_classes = (JSONWebTokenAuthentication,)
     # 权限
