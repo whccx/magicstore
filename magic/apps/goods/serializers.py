@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from goods.models import GoodsBase,Type
+from goods.models import GoodsBase,Type,Order
 
 
 # 业务逻辑(单字段），优先级：1
@@ -44,4 +44,10 @@ class TypeSerializer(serializers.ModelSerializer):
     #type_num = GoodsSerializer(many=True)
     class Meta:
         model = Type
+        fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
         fields = '__all__'

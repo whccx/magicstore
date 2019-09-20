@@ -15,7 +15,7 @@ from user.views import UsersViewSet,VerifyCodeViewSet
 
 
 from user.views import UsersViewSet
-from goods.views import GoodsViewSet,TypeViewSet
+from goods.views import GoodsViewSet,TypeViewSet,OrderViewSet
 
 
 router = routers.DefaultRouter()
@@ -31,6 +31,8 @@ router.register(r'code', VerifyCodeViewSet,base_name='code')
 router.register(r'goods', GoodsViewSet,base_name='goods')
 #分类信息
 router.register(r'type', TypeViewSet,base_name='type')
+#订单信息
+router.register(r'order', OrderViewSet,base_name='order')
 
 
 
