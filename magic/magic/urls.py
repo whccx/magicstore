@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 from django.views.generic.base import RedirectView
 from rest_framework_jwt.views import obtain_jwt_token
-
+from rest_framework.documentation import include_docs_urls
 
 from user.views import UsersViewSet,VerifyCodeViewSet
 
@@ -53,5 +53,8 @@ urlpatterns = [
 
     #富文本
     path('ueditor/',include('DjangoUeditor.urls')),
+
+    #DRF文档
+    path('docs/',include_docs_urls(title='DRF接口文档'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
