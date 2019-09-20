@@ -18,6 +18,4 @@ class IsOwner(BasePermission):
     message = "用户只能查看自己的订单。"
 
     def has_object_permission(self, request, view, obj):
-
         return obj.buy_phone == request.user
-
