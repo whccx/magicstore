@@ -2,5 +2,4 @@
 .idea
 __pycache__/
 media/
-/magic/apps/goods/migrations/
-/magic/apps/user/migrations/
+migrations/
