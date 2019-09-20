@@ -15,7 +15,7 @@ from user.views import UsersViewSet,VerifyCodeViewSet
 
 
 from user.views import UsersViewSet
-from goods.views import GoodsViewSet
+from goods.views import GoodsViewSet,TypeViewSet
 
 
 router = routers.DefaultRouter()
@@ -23,13 +23,14 @@ router = routers.DefaultRouter()
 #用户注册
 router.register(r'users', UsersViewSet,base_name='users')
 
-
 #验证码
 router.register(r'code', VerifyCodeViewSet,base_name='code')
 
-
-
+#商品===================
+#基础信息
 router.register(r'goods', GoodsViewSet,base_name='goods')
+#分类信息
+router.register(r'type', TypeViewSet,base_name='type')
 
 
 

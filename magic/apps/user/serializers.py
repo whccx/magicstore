@@ -56,9 +56,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 
-
-
-
 class VerifyCodeSerializer(serializers.Serializer):
     '''
         验证码
