@@ -71,8 +71,9 @@ class VerifyCodeSerializer(serializers.Serializer):
         :param mobile: 手机号
         :return:
         '''
+
         #正则验证手机号
-        regexp = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$"
+        regexp = "^(13[0-9]|14[1|4|5|6|7|8]|15[0|1|2|3|5|6|7|8|9]|166|17[0|1|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$"
         if not re.match(regexp,mobile):
             raise serializers.ValidationError('手机号码不正确')
 
