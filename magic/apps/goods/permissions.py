@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from rest_framework.permissions import BasePermission
+
 
 SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
 
@@ -18,5 +20,7 @@ class IsOwner(BasePermission):
     message = "用户只能查看自己的订单。"
 
     def has_object_permission(self, request, view, obj):
-
-        return obj.buy_phone == request.user
+        if request.user.is_superuser:
+            return True
+        else:
+            return obj.buy_phone == request.user

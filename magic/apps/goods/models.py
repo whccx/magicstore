@@ -3,7 +3,8 @@ import os
 from django.db import models
 from datetime import datetime
 from DjangoUeditor.models import UEditorField
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 #相应上传图片-名字/路径
 from django.urls import reverse
@@ -88,7 +89,7 @@ class Order(models.Model):
 	)
 
 	order_num = models.CharField(max_length=50,verbose_name='订单编号')
-	buy_phone = models.CharField(max_length=20,verbose_name='买家')
+	buy_phone = models.ForeignKey(User,on_delete=models.CASCADE,related_name='buy_phone',verbose_name='买家')
 	goods_num = models.CharField(max_length=50,verbose_name='商品编号')
 	buy_num = models.IntegerField(verbose_name='购买数量')
 	pay_money = models.DecimalField(max_digits=20,decimal_places=2,verbose_name='订单总价格')
