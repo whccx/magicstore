@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets,mixins,status
 
 from .permissions import IsAdminOrReadOnly,IsOwner
-from rest_framework import viewsets,mixins,status
 from .serializers import GoodsSerializer,TypeSerializer,OrderSerializer
 from goods.models import GoodsBase,Type,Order
 
@@ -17,7 +18,7 @@ class GoodsViewSet(viewsets.ModelViewSet,viewsets.GenericViewSet):
     '''
 
     # 认证
-    authentication_classes = (JSONWebTokenAuthentication,)
+    #authentication_classes = (JSONWebTokenAuthentication,)
     # 权限
     permission_classes = (IsAdminOrReadOnly,)
 
@@ -35,7 +36,7 @@ class TypeViewSet(viewsets.ModelViewSet,viewsets.GenericViewSet):
     '''
 
     # 认证
-    authentication_classes = (JSONWebTokenAuthentication,)
+    #authentication_classes = (JSONWebTokenAuthentication,)
     # 权限
     permission_classes = (IsAdminOrReadOnly,)
 
@@ -55,14 +56,17 @@ class OrderViewSet(viewsets.ModelViewSet,viewsets.GenericViewSet):
     # 认证
     #authentication_classes = (JSONWebTokenAuthentication,)
     # 权限
-    permission_classes = (IsOwner,)
+    permission_classes = (IsOwner,IsAuthenticated,)
 
     queryset = Order.objects.all().order_by('id')
     serializer_class = OrderSerializer
 
     def list(self, request, *args, **kwargs):
-        #不能查看别人的订单
-        queryset = Order.objects.filter(buy_phone__username=request.user.username).order_by('id')
+        if not request.user.is_superuser:
+            #不能查看别人的订单
+            queryset = Order.objects.filter(buy_phone__username=request.user.username).order_by('id')
+        else:
+            queryset = Order.objects.all().order_by('id')
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -71,3 +75,14 @@ class OrderViewSet(viewsets.ModelViewSet,viewsets.GenericViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        else:
+            return Response({'msg':'管理员不可以创建商品订单'}, status=status.HTTP_403_FORBIDDEN)
+

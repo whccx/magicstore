@@ -33,8 +33,9 @@ INSTALLED_APPS = [
     'DjangoUeditor',    # 富文本
 
     #===自定义APP=======================
-    'user',     # 用户信息
-    'goods',    #商品信息
+    'user',         # 用户信息
+    'goods',        # 商品信息
+    'magicadmin',   # 管理员后台
 
 ]
 
@@ -74,8 +75,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 
-    # 权限----设置所有接口都需要被验证
+    # 权限----
     'DEFAULT_PERMISSION_CLASSES': (
+        #设置所有接口都不需要被验证
         'rest_framework.permissions.AllowAny',
     ),
 
@@ -85,6 +87,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ],
+
     #配置文档接口
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema'
 }
