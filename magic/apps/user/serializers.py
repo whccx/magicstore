@@ -44,16 +44,39 @@ class RegisterSerializer(serializers.ModelSerializer):
         },
         style={'input_type': 'password'}
     )
+    code = serializers.CharField(min_length=4,max_length=4,required=True,write_only=True,
+                                 label='验证码',help_text='验证码',
+         error_messages={
+            'blank':'验证码不能为空',
+            'required':'请输入验证码',
+            'min_length':'验证码至少是4位',
+            'max_length':'验证码至多为4位'
+        }
+     )
 
-    class Meta:
-        model = User
-        fields = ['username','password','email']
-
+    def validate_code(self, code):
+        verify_code = VerifyCode.objects.filter(mobile=self.initial_data['username']).order_by('-add_time')
+        if verify_code:
+            last_code = verify_code[0]
+            two_minutes_ago = now() - timedelta(minutes=2)
+            if last_code.add_time < two_minutes_ago:
+                raise serializers.ValidationError('验证码已过期')
+            if last_code.code != code:
+                raise serializers.ValidationError('验证码输入错误')
+        else:
+            raise serializers.ValidationError('验证码错误')
 
     def validate_password(self,value):
         salt_pwd = make_password(value)
         return salt_pwd
 
+    def validate(self, attrs):
+        del attrs['code']
+        return attrs
+
+    class Meta:
+        model = User
+        fields = ['username','password','email','code']
 
 
 class VerifyCodeSerializer(serializers.Serializer):
